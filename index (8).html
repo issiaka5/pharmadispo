@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PharmaDispo – Produits disponibles en pharmacie</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f8f7;--card:#fff;--tx:#14231c;--mu:#5d6e66;--ac:#0f8f5f;--ac2:#e3f4ec;--bd:#dbe4df;--wa:#b45309;--wb:#fef3e2;--rd:#b42318}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1713;--card:#17221c;--tx:#e8f2ec;--mu:#97aaa0;--ac:#3ecf8e;--ac2:#163226;--bd:#27382f;--wa:#f5b45a;--wb:#33270f;--rd:#f97066}}
+:root[data-theme="dark"]{--bg:#0f1713;--card:#17221c;--tx:#e8f2ec;--mu:#97aaa0;--ac:#3ecf8e;--ac2:#163226;--bd:#27382f;--wa:#f5b45a;--wb:#33270f;--rd:#f97066}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:1.4rem;margin:4px 0 2px}
+.sub{color:var(--mu);margin:0 0 14px;font-size:.92rem}
+.tabs{display:flex;gap:6px;margin-bottom:12px}
+.tabs button{flex:1;padding:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;font:inherit;font-weight:600}
+.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+input[type=search],select,input[type=number]{width:100%;padding:12px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx);font:inherit}
+.row{display:flex;gap:8px;margin:8px 0;flex-wrap:wrap;align-items:center}
+.row>*{flex:1;min-width:130px}
+label.ck{display:flex;gap:6px;align-items:center;color:var(--mu);font-size:.92rem;flex:0 0 auto}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin:8px 0}
+.top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.pn{font-weight:700}.pr{color:var(--ac);font-weight:700;white-space:nowrap}
+.ph{color:var(--mu);font-size:.9rem;margin-top:2px}
+.b{display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:99px;background:var(--ac2);color:var(--ac);margin-right:4px;font-weight:600}
+.b.w2{background:var(--wb);color:var(--wa)}
+.pop{border-color:var(--ac);border-width:2px}
+.empty{color:var(--mu);text-align:center;padding:24px 8px}
+.note{font-size:.8rem;color:var(--mu);margin-top:14px}
+.ed{display:grid;grid-template-columns:auto 1fr 110px;gap:10px;align-items:center}
+.ed input[type=checkbox]{width:20px;height:20px}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>💊 PharmaDispo</h1>
+<p class="sub">Trouvez quelle pharmacie a le produit dont vous avez besoin, au meilleur prix.</p>
+<div class="tabs"><button id="t1" class="on">Rechercher</button><button id="t2">Espace pharmacie</button><button id="t3">Tarifs</button></div>
+
+<section id="s1">
+<input type="search" id="q" placeholder="Ex : paracétamol, Coartem, sérum…" autocomplete="off">
+<div class="row">
+<select id="com"></select>
+<label class="ck"><input type="checkbox" id="gd"> De garde</label>
+</div>
+<div id="res"></div>
+</section>
+
+<section id="s2" hidden>
+<p class="sub">Pharmacien : choisissez votre pharmacie, cochez les produits en stock et indiquez vos prix (FCFA).</p>
+<select id="ph"></select>
+<div id="ed"></div>
+</section>
+
+<section id="s3" hidden>
+<p class="sub">La recherche est gratuite pour les clients. Les pharmacies choisissent un abonnement mensuel.</p>
+<div class="card"><div class="top"><span class="pn">Client</span><span class="pr">Gratuit</span></div><div class="ph">Recherche illimitée de produits, prix et pharmacies de garde.</div></div>
+<div class="card"><div class="top"><span class="pn">Starter</span><span class="pr">5 000 FCFA / mois</span></div><div class="ph">1 pharmacie · jusqu’à 100 produits · mise à jour des prix et du stock.</div></div>
+<div class="card pop"><div class="top"><span class="pn">Pro <span class="b">Populaire</span></span><span class="pr">15 000 FCFA / mois</span></div><div class="ph">1 pharmacie · produits illimités · bouton WhatsApp · affichage en tête des résultats.</div></div>
+<div class="card"><div class="top"><span class="pn">Réseau</span><span class="pr">40 000 FCFA / mois</span></div><div class="ph">Jusqu’à 5 pharmacies · statistiques de recherche · support prioritaire.</div></div>
+<p class="ph">Paiement par Orange Money, MTN Money ou Wave. Premier mois offert.</p>
+</section>
+
+<p class="note">Tarifs indicatifs. Données de démonstration. Vérifiez toujours la disponibilité auprès de la pharmacie. Pour tout médicament, demandez conseil à un pharmacien.</p>
+</div>
+<script>
+var P=[["Paracétamol 500 mg",600],["Ibuprofène 400 mg",900],["Amoxicilline 500 mg",1800],["Coartem (antipaludéen)",2500],["Artésunate injectable",3200],["Sérum de réhydratation orale",300],["Vitamine C 500 mg",1000],["Spasfon",1500],["Doliprane 1000 mg",1200],["Loratadine 10 mg",1100],["Métronidazole 500 mg",1300],["Sirop contre la toux",2000]];
+var H=[{n:"Pharmacie du Plateau",c:"Plateau",g:true},{n:"Pharmacie Riviera Palmeraie",c:"Cocody",g:false},{n:"Pharmacie Saint Jean",c:"Cocody",g:true},{n:"Pharmacie Yopougon Siporex",c:"Yopougon",g:false},{n:"Pharmacie de Marcory Zone 4",c:"Marcory",g:false},{n:"Pharmacie Treichville Centre",c:"Treichville",g:true},{n:"Pharmacie Abobo Gare",c:"Abobo",g:false}];
+var S=H.map(function(h,i){return P.map(function(p,j){return {on:(i*7+j*3)%5!==0,p:p[1]+((i+j)%3)*50,low:(i+j)%4===0}})});
+try{var sv=localStorage.getItem("pharmadispo_stock");if(sv){var o=JSON.parse(sv);if(o&&o.length===S.length)S=o}}catch(e){}
+function save(){try{localStorage.setItem("pharmadispo_stock",JSON.stringify(S))}catch(e){}}
+function $(id){return document.getElementById(id)}
+function norm(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,"\u202f")+" FCFA"}
+var coms=["Toutes les communes"].concat(H.map(function(h){return h.c}).filter(function(c,i,a){return a.indexOf(c)===i}));
+$("com").innerHTML=coms.map(function(c,i){return '<option value="'+(i?c:"")+'">'+c+'</option>'}).join("");
+$("ph").innerHTML=H.map(function(h,i){return '<option value="'+i+'">'+h.n+' ('+h.c+')</option>'}).join("");
+function search(){
+var q=norm($("q").value.trim()),c=$("com").value,g=$("gd").checked,out=[];
+P.forEach(function(p,j){
+if(q&&norm(p[0]).indexOf(q)<0)return;
+H.forEach(function(h,i){
+var s=S[i][j];
+if(!s.on||(c&&h.c!==c)||(g&&!h.g))return;
+out.push({p:p[0],h:h,s:s})});
+});
+out.sort(function(a,b){return a.p<b.p?-1:a.p>b.p?1:a.s.p-b.s.p});
+if(!q&&!out.length){$("res").innerHTML='<div class="empty">Tapez le nom d’un produit.</div>';return}
+if(!out.length){$("res").innerHTML='<div class="empty">Aucune pharmacie ne propose ce produit avec ces filtres.</div>';return}
+$("res").innerHTML=out.slice(0,60).map(function(r){
+return '<div class="card"><div class="top"><span class="pn">'+r.p+'</span><span class="pr">'+fmt(r.s.p)+'</span></div><div class="ph">'+r.h.n+' · '+r.h.c+'</div><div style="margin-top:6px"><span class="b">'+(r.s.low?'':'En stock')+'</span>'+(r.s.low?'<span class="b w2">Stock limité</span>':'')+(r.h.g?'<span class="b w2">De garde</span>':'')+'</div></div>'}).join("")}
+function edit(){
+var i=+$("ph").value;
+$("ed").innerHTML=P.map(function(p,j){var s=S[i][j];
+return '<div class="card ed"><input type="checkbox" data-j="'+j+'" '+(s.on?"checked":"")+'><span>'+p[0]+'</span><input type="number" min="0" step="50" data-p="'+j+'" value="'+s.p+'"></div>'}).join("")}
+$("ed").addEventListener("input",function(e){
+var i=+$("ph").value,t=e.target;
+if(t.dataset.j!==undefined)S[i][+t.dataset.j].on=t.checked;
+if(t.dataset.p!==undefined)S[i][+t.dataset.p].p=Math.max(0,+t.value||0);
+save();search()});
+$("ph").onchange=edit;
+["q","com","gd"].forEach(function(id){$(id).addEventListener("input",search)});
+function tab(n){for(var k=1;k<=3;k++){$("s"+k).hidden=n!==k;$("t"+k).className=n===k?"on":""}if(n===2)edit()}
+$("t1").onclick=function(){tab(1)};$("t2").onclick=function(){tab(2)};$("t3").onclick=function(){tab(3)};
+search();
+</script>
+</body>
+</html>
