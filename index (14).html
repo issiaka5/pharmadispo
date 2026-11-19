@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PharmaDispo – Produits disponibles en pharmacie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);
+--bg:#F3F6F1;--sf:#FFFFFF;--ink:#0F2A20;--mu:#58706A;--ln:#DCE5DF;--ac:#0B5D46;--acx:#FFFFFF;--tint:#E1F1E8;--pn:#0B5D46;--am:#9A5B00;--am2:#FFF0D1;--lo:#9A5B00;
+--hd:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;--bd:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1612;--sf:#13211B;--ink:#E6F1EA;--mu:#93AAA0;--ln:#243630;--ac:#3FD39B;--acx:#06241A;--tint:#16352A;--pn:#0F3D2F;--am:#F4B955;--am2:#33270F;--lo:#F4B955}}
+:root[data-theme="dark"]{--bg:#0B1612;--sf:#13211B;--ink:#E6F1EA;--mu:#93AAA0;--ln:#243630;--ac:#3FD39B;--acx:#06241A;--tint:#16352A;--pn:#0F3D2F;--am:#F4B955;--am2:#33270F;--lo:#F4B955}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--bd);padding-bottom:96px}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.w{max-width:640px;margin:0 auto;padding:0 18px}
+.brand{display:flex;align-items:center;gap:10px;padding:16px 0 4px;font:800 1.15rem var(--hd)}
+.brand svg{width:30px;height:30px}
+h1{font:800 2rem/1.1 var(--hd);margin:18px 0 6px;letter-spacing:-.02em}
+.lead{color:var(--mu);margin:0 0 16px}
+.sb{position:relative}
+.sb svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--mu)}
+input[type=search],select,input[type=number]{width:100%;padding:14px 14px;border:2px solid var(--ln);border-radius:14px;background:var(--sf);color:var(--ink);font:inherit}
+input[type=search]{padding-left:44px;font-size:1.05rem;border-color:var(--ac)}
+select{padding:11px 12px}
+.fl{display:flex;gap:10px;margin:10px 0 18px;align-items:center}
+.fl select{flex:1}
+.sw{display:flex;align-items:center;gap:8px;white-space:nowrap;color:var(--ink);font-weight:500}
+.sw input{appearance:none;width:44px;height:26px;border-radius:99px;background:var(--ln);position:relative;margin:0;transition:background .2s}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s}
+.sw input:checked{background:var(--ac)}
+.sw input:checked::after{transform:translateX(18px)}
+h2{font:700 1.15rem var(--hd);margin:0}
+.g{margin:0 0 22px}
+.g h2{padding:0 0 8px;border-bottom:2px solid var(--ink)}
+.g ul{list-style:none;margin:0;padding:0}
+.g li{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--ln)}
+.g li b{display:block;font-weight:600}
+.m{color:var(--mu);font-size:.9rem}
+.pc{text-align:right;flex:none}
+.pc strong{display:block;font:700 1.15rem var(--hd);font-variant-numeric:tabular-nums}
+.best .pc strong{color:var(--ac)}
+.tag{display:inline-block;font-size:.78rem;font-weight:600;padding:1px 9px;border-radius:99px;background:var(--tint);color:var(--ac);margin-left:6px}
+.tag.gd{background:var(--am2);color:var(--am)}
+.st{font-size:.82rem;color:var(--mu)}
+.st::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ac);margin-right:5px}
+.st.lo::before{background:var(--lo)}
+.pl{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;gap:10px;padding:14px 0;border:0;border-bottom:1px solid var(--ln);background:none;color:var(--ink);font:inherit;cursor:pointer}
+.pl span{font-weight:600}.pl small{color:var(--mu);font-size:.88rem;text-align:right}
+.empty{padding:28px 0;color:var(--mu)}
+.sec h2{margin:6px 0 4px;font-size:1.5rem}
+.ed{display:grid;grid-template-columns:auto 1fr 110px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--ln)}
+.ed input[type=checkbox]{width:22px;height:22px;accent-color:var(--ac)}
+.pk{display:grid;grid-template-columns:1fr auto;gap:2px 12px;width:100%;text-align:left;padding:14px 16px;margin:0 0 10px;border:2px solid var(--ln);border-radius:14px;background:var(--sf);color:var(--ink);font:inherit;cursor:pointer}
+.pk .pn2{font:700 1.1rem var(--hd)}
+.pk .pd{grid-column:1;color:var(--mu);font-size:.9rem}
+.pk .pp{grid-column:2;grid-row:1/3;align-self:center;text-align:right;font:700 1.05rem var(--hd)}
+.pk .pp small{display:block;font:400 .78rem var(--bd);color:var(--mu)}
+.pk.on{border-color:var(--ac);background:var(--tint)}
+.pk.on .pn2::after{content:" ✓";color:var(--ac)}
+.wv{background:var(--pn);color:#fff;border-radius:18px;padding:20px;margin-top:20px;text-align:center}
+.wv h2{color:#fff}
+.wv p{margin:6px 0 0;color:#D5EBDF}
+#sel{font-weight:700;color:#fff;margin:12px 0 0}
+#qr{display:inline-block;background:#fff;padding:10px;border-radius:12px;line-height:0;margin:14px 0 4px}
+.num{display:flex;gap:10px;align-items:center;justify-content:center;margin:10px 0}
+.num span{font:800 1.5rem var(--hd);letter-spacing:.02em;user-select:all;-webkit-user-select:all}
+.bt{display:block;padding:12px 16px;border:0;border-radius:12px;background:#fff;color:#0B5D46;font:700 1rem var(--bd);text-decoration:none;cursor:pointer}
+.bt.sm{padding:8px 14px}
+.wv .bt.go{margin-top:10px;background:#3FD39B;color:#06241A}
+.note{font-size:.82rem;color:var(--mu);margin:22px 0 0}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--sf);border-top:1px solid var(--ln);display:flex;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;border:0;background:none;color:var(--mu);font:600 .8rem var(--bd);cursor:pointer}
+nav button svg{width:24px;height:24px}
+nav button.on{color:var(--ac)}
+.band{background:var(--pn);color:#fff;border-radius:0 0 28px 28px;padding-bottom:22px;position:relative;overflow:hidden}
+.band::after{content:"";position:absolute;right:-34px;top:-26px;width:200px;height:200px;pointer-events:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M13 2h6v11h11v6H19v11h-6V19H2v-6h11z' fill='white' fill-opacity='.09'/></svg>") no-repeat center/contain}
+.band .w{position:relative;z-index:1}
+.band .brand{color:#fff;padding-top:18px}
+.band h1{color:#fff;margin-top:16px}
+.band .lead{color:#CFE8DA}
+.band input[type=search]{border-color:transparent;box-shadow:0 8px 22px rgba(0,0,0,.2)}
+.stat{display:flex;gap:26px;margin-top:18px;color:#CFE8DA;font-size:.88rem}
+.stat b{display:block;color:#fff;font:800 1.5rem/1.1 var(--hd)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:16px 18px 6px;margin:0 -18px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;padding:9px 15px;border-radius:99px;border:1.5px solid var(--ln);background:var(--sf);color:var(--ink);font:600 .9rem var(--bd);cursor:pointer;white-space:nowrap}
+.chips button.on{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+.cat{display:flex;align-items:center;gap:10px;font:700 1.05rem var(--hd);margin:22px 0 2px}
+.cat span{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--tint);font-size:1.1rem}
+.g{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px 16px}
+.g h2{border-bottom:1px solid var(--ln)}
+.g li:last-child{border-bottom:0}
+.tag.rx{background:var(--ln);color:var(--mu);margin:0 0 0 6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="band"><div class="w">
+<div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#fff"/><path d="M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z" fill="#0B5D46"/></svg>PharmaDispo</div>
+<div id="hero"><h1>Quel produit cherchez-vous ?</h1>
+<p class="lead">Voyez quelles pharmacies l’ont en stock, et à quel prix.</p>
+<div class="sb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" id="q" placeholder="Paracétamol, Coartem, sérum…" autocomplete="off" aria-label="Nom du produit"></div>
+<div class="stat"><div><b id="n1">0</b>produits</div><div><b id="n2">0</b>pharmacies</div><div><b id="n3">0</b>communes</div></div></div>
+</div></div>
+<div class="w">
+<section id="s1">
+<div class="chips" id="chips"></div>
+<div class="fl"><select id="com" aria-label="Commune"></select><label class="sw"><input type="checkbox" id="gd">De garde</label></div>
+<div id="res"></div>
+</section>
+
+<section id="s2" class="sec" hidden>
+<h2>Espace pharmacie</h2>
+<p class="lead">Cochez les produits en stock et indiquez vos prix en FCFA.</p>
+<select id="ph" aria-label="Votre pharmacie"></select>
+<div id="ed"></div>
+</section>
+
+<section id="s3" class="sec" hidden>
+<h2>Tarifs</h2>
+<p class="lead">La recherche est gratuite pour les clients. Les pharmacies choisissent un abonnement.</p>
+<button class="pk" data-n="Starter" onclick="pick('Starter',5000)"><span class="pn2">Starter</span><span class="pd">1 pharmacie, 100 produits, mise à jour du stock</span><span class="pp">5 000 FCFA<small>par mois</small></span></button>
+<button class="pk" data-n="Pro" onclick="pick('Pro',15000)"><span class="pn2">Pro <span class="tag">Le plus choisi</span></span><span class="pd">Produits illimités, bouton WhatsApp, en tête des résultats</span><span class="pp">15 000 FCFA<small>par mois</small></span></button>
+<button class="pk" data-n="Réseau" onclick="pick('Réseau',40000)"><span class="pn2">Réseau</span><span class="pd">Jusqu’à 5 pharmacies, statistiques, support prioritaire</span><span class="pp">40 000 FCFA<small>par mois</small></span></button>
+<div class="wv">
+<h2>Payer par Wave</h2>
+<p>Premier mois offert. Indiquez le nom de votre pharmacie dans le motif.</p>
+<div id="sel">Choisissez un tarif ci-dessus.</div>
+<div id="qr"></div>
+<div class="num"><span>0172169667</span><button id="cpb" class="bt sm" onclick="cp()">Copier</button></div>
+<a class="bt go" href="https://qr.wave.com/iVVNfY2lfaklONllnTWM3dm5p/Bq_fQf/BoCkD8/p" target="_blank" rel="noopener">Payer avec Wave</a>
+</div>
+</section>
+
+<p class="note">Tarifs indicatifs et données de démonstration. Vérifiez la disponibilité auprès de la pharmacie, et demandez conseil à un pharmacien pour tout médicament.</p>
+</div>
+
+<nav>
+<button id="t1" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Rechercher</button>
+<button id="t2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg>Pharmacie</button>
+<button id="t3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg>Tarifs</button>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+var C=[
+["Douleur et fièvre","🤒",[["Paracétamol 500 mg",600],["Doliprane 1000 mg",1200],["Efferalgan 500 mg",1500],["Ibuprofène 400 mg",900],["Aspirine 500 mg",700],["Diclofénac 50 mg",1400,1],["Kétoprofène gel",2200]]],
+["Paludisme","🦟",[["Coartem (antipaludéen)",2500],["Coartem enfant",1800],["Artésunate injectable",3200,1],["Quinine 300 mg",1500,1],["Test de diagnostic rapide",1000],["Moustiquaire imprégnée",3500]]],
+["Infections","🧫",[["Amoxicilline 500 mg",1800,1],["Amoxicilline + acide clavulanique",3500,1],["Métronidazole 500 mg",1300,1],["Ciprofloxacine 500 mg",2500,1],["Azithromycine 500 mg",3000,1],["Cotrimoxazole 480 mg",800,1]]],
+["Estomac et digestion","🍃",[["Spasfon",1500],["Oméprazole 20 mg",1800],["Smecta",1800],["Sérum de réhydratation orale",300],["Gaviscon",2500],["Lopéramide 2 mg",1000],["Charbon actif",1200]]],
+["Rhume, toux et allergies","🤧",[["Sirop contre la toux",2000],["Loratadine 10 mg",1100],["Cétirizine 10 mg",1000],["Sérum physiologique nasal",1500],["Pastilles pour la gorge",1200],["Fervex sachets",3000]]],
+["Vitamines et énergie","🍊",[["Vitamine C 500 mg",1000],["Vitamine D3",2500],["Fer et acide folique",1800],["Multivitamines",3500],["Magnésium B6",2800],["Zinc 15 mg",2000],["Oméga 3",4500]]],
+["Peau et soins","🩹",[["Bétadine solution",1500],["Eau oxygénée",500],["Pommade cicatrisante",1800],["Crème antifongique",2500],["Gel hydroalcoolique",1000],["Pansements adhésifs",800],["Compresses stériles",700]]],
+["Bébé et maman","👶",[["Lait infantile 1er âge",6500],["Couches taille 3",4500],["Gel lavant bébé",2500],["Test de grossesse",1000],["Serviettes hygiéniques",1000],["Préservatifs",500]]],
+["Matériel de santé","🩺",[["Thermomètre digital",2500],["Tensiomètre",18000],["Bandelettes de glycémie",6000],["Masques chirurgicaux",1500]]]
+];
+var P=[];C.forEach(function(c,k){c[2].forEach(function(p){P.push([p[0],p[1],k,p[2]])})});
+var H=[{n:"Pharmacie du Plateau",c:"Plateau",g:true},{n:"Pharmacie Riviera Palmeraie",c:"Cocody",g:false},{n:"Pharmacie Saint Jean",c:"Cocody",g:true},{n:"Pharmacie Angré 8e tranche",c:"Cocody",g:false},{n:"Pharmacie Yopougon Siporex",c:"Yopougon",g:false},{n:"Pharmacie Niangon Sud",c:"Yopougon",g:true},{n:"Pharmacie de Marcory Zone 4",c:"Marcory",g:false},{n:"Pharmacie Treichville Centre",c:"Treichville",g:true},{n:"Pharmacie Abobo Gare",c:"Abobo",g:false},{n:"Pharmacie Adjamé Liberté",c:"Adjamé",g:true},{n:"Pharmacie Koumassi Remblais",c:"Koumassi",g:false},{n:"Pharmacie Port-Bouët Vridi",c:"Port-Bouët",g:false}];
+var S=H.map(function(h,i){return P.map(function(p,j){return {on:(i*7+j*3)%5!==0,p:p[1]+((i+j)%3)*50,low:(i+j)%4===0}})});
+try{var sv=localStorage.getItem("pharmadispo_stock2");if(sv){var o=JSON.parse(sv);if(o&&o.length===S.length&&o[0].length===P.length)S=o}}catch(e){}
+function save(){try{localStorage.setItem("pharmadispo_stock2",JSON.stringify(S))}catch(e){}}
+function $(id){return document.getElementById(id)}
+function norm(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,"\u202f")+" FCFA"}
+var coms=["Toutes les communes"].concat(H.map(function(h){return h.c}).filter(function(c,i,a){return a.indexOf(c)===i}));
+$("com").innerHTML=coms.map(function(c,i){return '<option value="'+(i?c:"")+'">'+c+'</option>'}).join("");
+$("ph").innerHTML=H.map(function(h,i){return '<option value="'+i+'">'+h.n+' ('+h.c+')</option>'}).join("");
+function rows(j,c,g){var r=[];H.forEach(function(h,i){var s=S[i][j];if(s.on&&(!c||h.c===c)&&(!g||h.g))r.push({h:h,s:s})});return r.sort(function(a,b){return a.s.p-b.s.p})}
+var cat=-1;
+function chips(){$("chips").innerHTML='<button data-c="-1" class="'+(cat<0?"on":"")+'">Tout</button>'+C.map(function(c,k){return '<button data-c="'+k+'" class="'+(cat===k?"on":"")+'">'+c[1]+' '+c[0]+'</button>'}).join("")}
+$("chips").addEventListener("click",function(e){var b=e.target.closest("button");if(b){cat=+b.dataset.c;chips();search()}});
+function search(){
+var q=norm($("q").value.trim()),c=$("com").value,g=$("gd").checked,html="";
+if(!q){
+C.forEach(function(ct,k){if(cat>=0&&cat!==k)return;
+var items=P.map(function(p,j){if(p[2]!==k)return "";var r=rows(j,c,g);return r.length?'<button class="pl" data-q="'+p[0]+'"><span>'+p[0]+(p[3]?'<span class="tag rx">Sur ordonnance</span>':'')+'</span><small>'+r.length+' pharmacie'+(r.length>1?'s':'')+'<br>dès '+fmt(r[0].s.p)+'</small></button>':''}).join("");
+if(items)html+='<div class="cat"><span>'+ct[1]+'</span>'+ct[0]+'</div>'+items});
+$("res").innerHTML=html||'<div class="empty">Aucun produit disponible avec ces filtres.</div>';return}
+P.forEach(function(p,j){
+if(cat>=0&&p[2]!==cat)return;
+if(norm(p[0]).indexOf(q)<0&&norm(C[p[2]][0]).indexOf(q)<0)return;
+var r=rows(j,c,g);if(!r.length)return;
+html+='<section class="g"><h2>'+p[0]+(p[3]?'<span class="tag rx">Sur ordonnance</span>':'')+'</h2><ul>'+r.map(function(x,k){
+return '<li'+(k===0?' class="best"':'')+'><div><b>'+x.h.n+'</b><span class="m">'+x.h.c+'</span>'+(x.h.g?'<span class="tag gd">De garde</span>':'')+(k===0&&r.length>1?'<span class="tag">Moins cher</span>':'')+'</div><div class="pc"><strong>'+fmt(x.s.p)+'</strong><span class="st'+(x.s.low?' lo':'')+'">'+(x.s.low?'Stock limité':'En stock')+'</span></div></li>'}).join("")+'</ul></section>'});
+$("res").innerHTML=html||'<div class="empty">Aucune pharmacie ne propose ce produit avec ces filtres. Essayez une autre commune ou un autre nom.</div>'}
+$("res").addEventListener("click",function(e){var b=e.target.closest(".pl");if(b){$("q").value=b.dataset.q;search();window.scrollTo(0,0)}});
+function edit(){
+var i=+$("ph").value;
+$("ed").innerHTML=P.map(function(p,j){var s=S[i][j];
+return (j===0||P[j-1][2]!==p[2]?'<div class="cat"><span>'+C[p[2]][1]+'</span>'+C[p[2]][0]+'</div>':'')+'<div class="ed"><input type="checkbox" data-j="'+j+'" '+(s.on?"checked":"")+' aria-label="En stock"><span>'+p[0]+'</span><input type="number" min="0" step="50" data-p="'+j+'" value="'+s.p+'" aria-label="Prix en FCFA"></div>'}).join("")}
+$("ed").addEventListener("input",function(e){
+var i=+$("ph").value,t=e.target;
+if(t.dataset.j!==undefined)S[i][+t.dataset.j].on=t.checked;
+if(t.dataset.p!==undefined)S[i][+t.dataset.p].p=Math.max(0,+t.value||0);
+save();search()});
+$("ph").onchange=edit;
+["q","com","gd"].forEach(function(id){$(id).addEventListener("input",search)});
+function tab(n){for(var k=1;k<=3;k++){$("s"+k).hidden=n!==k;$("t"+k).className=n===k?"on":""}$("hero").hidden=n!==1;if(n===2)edit();window.scrollTo(0,0)}
+$("t1").onclick=function(){tab(1)};$("t2").onclick=function(){tab(2)};$("t3").onclick=function(){tab(3)};
+function drawQR(){try{var q=qrcode(0,"M");q.addData("https://qr.wave.com/iVVNfY2lfaklONllnTWM3dm5p/Bq_fQf/BoCkD8/p");q.make();var h=$("qr");h.innerHTML=q.createSvgTag(4,0);var s=h.firstChild;s.style.width="200px";s.style.height="200px"}catch(e){$("qr").style.display="none"}}
+drawQR();
+function pick(name,amt){var s=$("sel");s.textContent="Plan "+name+" : envoyez "+fmt(amt)+" au numéro ci-dessous.";var bs=document.querySelectorAll(".pk");for(var k=0;k<bs.length;k++){bs[k].className=bs[k].dataset.n===name?"pk on":"pk"}s.scrollIntoView({behavior:"smooth",block:"center"})}
+function cp(){var n="0172169667",b=$("cpb");
+function ok(){b.textContent="Copié ✓";setTimeout(function(){b.textContent="Copier"},2000)}
+function fb(){try{var t=document.createElement("textarea");t.value=n;t.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.appendChild(t);t.focus();t.select();t.setSelectionRange(0,99);var r=document.execCommand("copy");document.body.removeChild(t);if(r)ok();else b.textContent=n}catch(e){b.textContent=n}}
+if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(n).then(ok,fb)}else fb()}
+$("n1").textContent=P.length;$("n2").textContent=H.length;$("n3").textContent=coms.length-1;
+chips();search();
+</script>
+</body>
+</html>
