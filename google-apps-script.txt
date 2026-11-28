@@ -1,0 +1,57 @@
+// PharmaDispo : réception des inscriptions dans Google Sheets + email de notification
+// À coller dans Extensions > Apps Script d'une feuille Google Sheets.
+
+const NOTIFY = "issiakadjeme5@gmail.com";   // l'email qui reçoit chaque nouvelle demande
+const SHEET_NAME = "Demandes";               // nom de l'onglet créé automatiquement
+
+function doPost(e) {
+  try {
+    const p = (e && e.parameter) ? e.parameter : {};
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sh = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
+
+    if (sh.getLastRow() === 0) {
+      sh.appendRow(["Date", "Type", "Pharmacie", "Ville", "Téléphone", "Email", "Responsable", "Offre", "Facturation", "Détail"]);
+      sh.getRange(1, 1, 1, 10).setFontWeight("bold");
+      sh.setFrozenRows(1);
+    }
+
+    // Nettoyage : limite la longueur et empêche qu'un texte soit lu comme une formule
+    const clean = function (v) {
+      v = String(v || "").slice(0, 300);
+      return /^[=+\-@]/.test(v) ? "'" + v : v;
+    };
+
+    const row = sh.getLastRow() + 1;
+    sh.getRange(row, 5).setNumberFormat("@");   // le téléphone reste du texte
+    sh.getRange(row, 1, 1, 10).setValues([[
+      new Date(), clean(p.type), clean(p.pharmacie), clean(p.ville), clean(p.telephone),
+      clean(p.email), clean(p.responsable), clean(p.offre), clean(p.facturation), clean(p.detail)
+    ]]);
+
+    // Email de notification
+    const type = clean(p.type) || "demande";
+    const lignes = [
+      "Type : " + type,
+      "Pharmacie : " + clean(p.pharmacie),
+      "Ville : " + clean(p.ville),
+      "Téléphone : " + clean(p.telephone),
+      "Email : " + clean(p.email),
+      "Responsable : " + clean(p.responsable),
+      "Offre : " + clean(p.offre) + " (" + clean(p.facturation) + ")",
+      "Détail : " + clean(p.detail)
+    ];
+    const options = { to: NOTIFY, subject: "PharmaDispo : nouvelle " + type + " – " + clean(p.pharmacie), body: lignes.join("\n") };
+    if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(p.email || ""))) options.replyTo = String(p.email);
+    MailApp.sendEmail(options);
+
+    return ContentService.createTextOutput(JSON.stringify({ ok: true })).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ ok: false, error: String(err) })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// Permet de tester dans le navigateur : l'adresse doit afficher le texte ci-dessous
+function doGet() {
+  return ContentService.createTextOutput("PharmaDispo inscriptions : OK");
+}
