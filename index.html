@@ -938,12 +938,12 @@ function envoyerInscription(e) {
   // Préparation du message
   const sujet = encodeURIComponent("Nouvelle inscription Pharmacie : " + nom);
   const corps = encodeURIComponent(
-    "Nom de la pharmacie : " + nom + "\n" +
-    "Ville : " + ville + "\n" +
-    "Téléphone : " + tel + "\n" +
-    "E-mail : " + email + "\n" +
-    "Offre choisie : " + offre + "\n" +
-    "Référence de paiement : " + (ref || "Non fournie") + "\n\n" +
+    "Nom de la pharmacie : " + nom + "%0D%0A" +
+    "Ville : " + ville + "%0D%0A" +
+    "Téléphone : " + tel + "%0D%0A" +
+    "E-mail : " + email + "%0D%0A" +
+    "Offre choisie : " + offre + "%0D%0A" +
+    "Référence de paiement : " + (ref || "Non fournie") + "%0D%0%0D%0A" +
     "Premier mois offert."
   );
 
