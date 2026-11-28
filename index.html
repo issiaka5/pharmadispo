@@ -385,10 +385,18 @@ section:not([hidden]){animation:up .3s ease-out}
 <input type="search" id="fq" placeholder="Tapez le nom ou la ville de votre pharmacie…" autocomplete="off" aria-label="Nom de votre pharmacie">
 <div id="fr"></div></div>
 <div class="steps ps"><div><i>1</i><b>Choisissez</b><span>une offre</span></div><div><i>2</i><b>Payez</b><span>Wave ou MTN</span></div><div><i>3</i><b>Confirmez</b><span>par Gmail</span></div></div>
-<div class="bill" id="bill"><button class="on" data-b="m">Mensuel</button><button data-b="a">Annuel <i>2 mois offerts</i></button></div>
-<button class="pk" data-n="Starter" data-m="5000" onclick="pick('Starter',5000)"><span class="pn2">Starter</span><span class="pp"><b>5 000 FCFA</b><small>par mois</small></span><span class="ft2"><i>✓</i>Fiche vérifiée : adresse et téléphone</span><span class="ft2"><i>✓</i>Bouton Itinéraire</span><span class="ft2"><i>✓</i>Assistance par WhatsApp</span><span class="pgo">Choisir Starter</span></button>
-<button class="pk" data-n="Pro" data-m="15000" onclick="pick('Pro',15000)"><span class="pn2">Pro <span class="tag">Recommandé</span></span><span class="pp"><b>15 000 FCFA</b><small>par mois</small></span><span class="ft2"><i>✓</i>Tout Starter</span><span class="ft2"><i>✓</i>En tête des résultats</span><span class="ft2"><i>✓</i>Badge Partenaire</span><span class="ft2"><i>✓</i>Bouton WhatsApp sur votre fiche</span><span class="pgo">Choisir Pro</span></button>
-<button class="pk" data-n="Réseau" data-m="40000" onclick="pick('Réseau',40000)"><span class="pn2">Réseau</span><span class="pp"><b>40 000 FCFA</b><small>par mois</small></span><span class="ft2"><i>✓</i>Tout Pro</span><span class="ft2"><i>✓</i>Jusqu’à 5 pharmacies</span><span class="ft2"><i>✓</i>Support prioritaire</span><span class="pgo">Choisir Réseau</span></button>
+<button class="pk" data-n="Starter" data-m="5000" onclick="pick('Starter',5000)">
+  <span class="pn2">Starter</span>
+  <span class="pp"><b>5 000 FCFA</b><small>par mois</small></span>
+</button>
+<button class="pk" data-n="Pro" data-m="15000" onclick="pick('Pro',15000)">
+  <span class="pn2">Pro <span class="tag">Recommandé</span></span>
+  <span class="pp"><b>15 000 FCFA</b><small>par mois</small></span>
+</button>
+<button class="pk" data-n="Réseau" data-m="40000" onclick="pick('Réseau',40000)">
+  <span class="pn2">Réseau</span>
+  <span class="pp"><b>40 000 FCFA</b><small>par mois</small></span>
+</button>
 <p class="m" style="margin:6px 0 0">Bientôt : mise à jour du stock par la pharmacie elle-même.</p>
 <div class="roi"><h2 class="sh" style="margin-top:0">Combien pouvez-vous gagner ?</h2>
 <label for="r1">Panier moyen d’un client (FCFA)</label><input type="number" id="r1" value="3000" min="0" step="500" inputmode="numeric">
