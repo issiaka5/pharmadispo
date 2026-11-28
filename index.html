@@ -225,33 +225,34 @@ details p{margin:8px 0 0;color:var(--mu);font-size:.92rem}
 #top.show{opacity:1;pointer-events:auto;transform:none}
 nav button{position:relative}
 nav button.on::before{content:"";position:absolute;top:-9px;left:28%;right:28%;height:5px;border-radius:0 0 6px 6px;background:var(--or)}
-.band input[type=search]:focus{outline:none;box-shadow:4px 4px 0 var(--ol),0 0 0 5px rgba(242,140,27,.5)}
-.pk[data-n="Pro"] .tag{animation:pulse 2.2s ease-in-out infinite}
-@keyframes pulse{50%{transform:scale(1.09)}}
-.bill{display:flex;gap:8px;margin:0 0 14px}
-.bill button{flex:1;padding:11px 8px;border:2.5px solid var(--ol);border-radius:12px;background:var(--sf);color:var(--ink);font:700 .95rem var(--bd);cursor:pointer}
-.bill button.on{background:var(--or);color:#2A1700;box-shadow:2px 2px 0 var(--ol)}
-.bill i{display:block;font-style:normal;font-size:.72rem;font-weight:700;color:var(--ac)}
-.bill button.on i{color:#2A1700}
-.roi{margin:22px 0 0;padding:16px;background:var(--sf);border:3px solid var(--ol);border-radius:16px;box-shadow:5px 5px 0 var(--ol)}
-.roi label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
-.ro{display:grid;gap:8px;margin-top:14px}
-.ro div{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:10px 12px;border-radius:12px;background:var(--bg);border:2px solid var(--ol);font-size:.88rem}
-.ro b{font:800 1.1rem var(--hd);white-space:nowrap}
-.ro .net{background:var(--ora)}.ro .net b{color:var(--ac)}.ro .neg b{color:#B42318}
-.jn{display:block;width:100%;margin:18px 0 0;padding:14px;border:3px solid var(--ol);border-radius:14px;background:var(--or);color:#2A1700;font:800 1.05rem var(--hd);box-shadow:4px 4px 0 var(--ol);cursor:pointer}
-.jn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ol)}
-.claim{padding:0 2px;background:none;border:0;color:var(--mu);text-decoration:underline;font:600 .8rem var(--bd);cursor:pointer;align-self:center}
-.wv.mtn{background:linear-gradient(160deg,#FFD83A,#F5B800);color:#1E2A22;margin-top:16px}
-.wv.mtn h2,.wv.mtn p,.wv.mtn #sel2{color:#1E2A22}
-.wv.mtn #sel2{font-weight:700;margin:12px 0 0}
-.wv.mtn .num span{color:#1E2A22}
-.wv.mtn .bt{background:#fff;color:#1E2A22;border:2px solid var(--ol)}
-.near{width:100%;margin:14px 0 0;flex:none;padding:12px}
-.ps{margin:6px 0 4px}
-.ct{color:inherit}
-.pn3{background:var(--sf);border:2.5px solid var(--ol);border-radius:14px;box-shadow:3px 3px 0 var(--ol);padding:12px 14px;margin:0 0 10px}
-.pn3.inv span{display:block;color:var(--mu);font-size:.88rem;margin:2px 0 10px}
+.  e.preventDefault();
+  
+  // Récupération des données
+  const nom = document.getElementById('insNom').value;
+  const ville = document.getElementById('insVille').value;
+  const tel = document.getElementById('insTel').value;
+  const email = document.getElementById('insEmail').value;
+  const offre = document.getElementById('insOffre').value;
+  const ref = document.getElementById('insRef').value;
+
+  // Préparation du message avec les sauts de ligne compatibles téléphone
+  const saut = "%0D%0A"; 
+  const sujet = encodeURIComponent("Nouvelle inscription Pharmacie : " + nom);
+  
+  const corps = 
+    "Nom de la pharmacie : " + encodeURIComponent(nom) + saut +
+    "Ville : " + encodeURIComponent(ville) + saut +
+    "Téléphone : " + encodeURIComponent(tel) + saut +
+    "E-mail : " + encodeURIComponent(email) + saut +
+    "Offre choisie : " + encodeURIComponent(offre) + saut +
+    "Référence de paiement : " + encodeURIComponent(ref || "Non fournie") + saut + saut +
+    "Premier mois offert.";
+
+  // Envoi par e-mail (REMPLACE L'ADRESSE CI-DESSOUS PAR LA TIENNE)
+  window.location.href = "mailto:issiaka5@gmail.com?subject=" + sujet + "&body=" + corps;
+  
+  // Message de confirmation
+  alert("Votre application e-mail va s'ouvrir. Veuillez envoyer le message pour finaliser votre inscription.");
 .pn3.inv .ob{flex:none;width:auto;padding:9px 16px;background:var(--or);color:#2A1700}
 .pop{display:flex;gap:10px;overflow-x:auto;padding:4px 18px 14px;margin:0 -18px;scrollbar-width:none}
 .pop::-webkit-scrollbar{display:none}
