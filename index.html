@@ -395,7 +395,32 @@ section:not([hidden]){animation:up .3s ease-out}
 </button>
 <button class="pk" data-n="Réseau" data-m="40000" onclick="pick('Réseau',40000)">
   <span class="pn2">Réseau</span>
-  <span class="pp"><b>40 000 FCFA</b><small>par mois</small></span>
+  <span class="pp"><b>40 000 FCFA</b><small>par mois</small></span><p>Remplissez ce formulaire. Nous vous contactons par e-mail pour confirmer. Premier mois offert.</p>
+<form id="formInscription" onsubmit="envoyerInscription(event)">
+  <input type="text" id="insNom" placeholder="Nom de la pharmacie *" required>
+  <input type="text" id="insVille" placeholder="Ville *" required>
+  <input type="tel" id="insTel" placeholder="Téléphone *" required>
+  <input type="email" id="insEmail" placeholder="E-mail *" required>
+  
+  <select id="insOffre" required>
+    <option value="">-- Choisir l'offre --</option>
+    <option value="Starter">Starter (5 000 FCFA)</option>
+    <option value="Pro">Pro (15 000 FCFA)</option>
+    <option value="Réseau">Réseau (40 000 FCFA)</option>
+    <option value="Essai">Premier mois offert</option>
+  </select>
+  
+  <input type="text" id="insRef" placeholder="Référence Wave / MTN (si déjà payé)">
+  
+  <label style="display:flex; gap:8px; margin:15px 0; font-size:14px;">
+    <input type="checkbox" id="insConsent" required> 
+    J'accepte que PharmaDispo me contacte à propos de mon inscription.
+  </label>
+  
+  <button type="submit" class="btn" style="background:#1E8E3E; color:white; padding:12px; width:100%; border:none; border-radius:8px; font-weight:bold;">
+    Envoyer mon inscription
+  </button>
+</form>
 </button>
 <p class="m" style="margin:6px 0 0">Bientôt : mise à jour du stock par la pharmacie elle-même.</p>
 <div class="roi"><h2 class="sh" style="margin-top:0">Combien pouvez-vous gagner ?</h2>
