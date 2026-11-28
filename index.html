@@ -924,5 +924,33 @@ setupReg();
 renderPrices();
 chips();search();
 </script>
-</body>
+function envoyerInscription(e) {
+  e.preventDefault();
+  
+  // Récupération des données
+  const nom = document.getElementById('insNom').value;
+  const ville = document.getElementById('insVille').value;
+  const tel = document.getElementById('insTel').value;
+  const email = document.getElementById('insEmail').value;
+  const offre = document.getElementById('insOffre').value;
+  const ref = document.getElementById('insRef').value;
+
+  // Préparation du message
+  const sujet = encodeURIComponent("Nouvelle inscription Pharmacie : " + nom);
+  const corps = encodeURIComponent(
+    "Nom de la pharmacie : " + nom + "\n" +
+    "Ville : " + ville + "\n" +
+    "Téléphone : " + tel + "\n" +
+    "E-mail : " + email + "\n" +
+    "Offre choisie : " + offre + "\n" +
+    "Référence de paiement : " + (ref || "Non fournie") + "\n\n" +
+    "Premier mois offert."
+  );
+
+  // Envoi par e-mail (mailto)
+  window.location.href = "mailto:TON_EMAIL@GMAIL.COM?subject=" + sujet + "&body=" + corps;
+  
+  // Message de confirmation
+  alert("Votre application e-mail va s'ouvrir. Veuillez envoyer le message pour finaliser votre inscription.");
+}/body>
 </html>
