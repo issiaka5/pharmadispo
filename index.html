@@ -450,18 +450,21 @@ section:not([hidden]){animation:up .3s ease-out}
 <h2>Payer par Wave</h2>
 <p>Premier mois offert. Indiquez le nom de votre pharmacie dans le motif.</p>
 <div id="sel">Choisissez un tarif ci-dessus.</div>
-<button id="cf" class="bt sm" style="margin:10px auto 0" hidden onclick="confirmPay()">J’ai payé : envoyer la confirmation</button>
-<div class="qrc"><div id="qr"></div><small>Scannez avec l’appli Wave</small></div>
-<button id="dl" class="bt sm" style="margin:12px auto 0" onclick="dlQR()">Enregistrer le QR en image</button>
+<div class="qrc"><div id="qr"></div><small>Scannez avec l'appli Wave</small></div>
+<button id="dlQR" class="bt sm" style="margin:12px auto 0" onclick="dlQR()">Enregistrer le QR en image</button>
 <div class="num"><span>0172169667</span><button id="cpb" class="bt sm" onclick="cp('0172169667','cpb')">Copier</button></div>
-<a class="bt go" href="https://qr.wave.com/iVVNfY2lfaklONllnTWM3dm5p/Bq_xUG/AdwhSE/p" target="_blank" rel="noopener">Payer avec Wave</a>
-</div>
-<div class="wv mtn">
+<a class="bt go" href="https://qr.wave.com/iWVNfY2lfak1ONl1nTWM3dm5p/Bq_xUG/AdWhSE/p" target="_blank" rel="noopener">Payer avec Wave</a>
+
+<!-- Bouton de confirmation ajouté ici -->
+<button onclick="envoyerPreuvePaiement('Wave')" class="bt go" style="background:#1E8E3E; border:none; margin-top:10px;">J'ai payé par Wave : envoyer la confirmation</button>
 <h2>Payer par MTN Money</h2>
 <p>Premier mois offert. Indiquez le nom de votre pharmacie dans le motif.</p>
 <div id="sel2">Choisissez un tarif ci-dessus.</div>
 <div class="num"><span>0574147375</span><button id="cpb2" class="bt sm" onclick="cp('0574147375','cpb2')">Copier</button></div>
 <p style="font-size:.85rem">Envoyez le montant à ce numéro depuis votre application ou votre menu MTN Money.</p>
+
+<!-- Bouton de confirmation ajouté ici -->
+<button onclick="envoyerPreuvePaiement('MTN')" class="bt go" style="background:#1E8E3E; border:none; margin-top:10px;">J'ai payé par MTN : envoyer la confirmation</button>
 </div>
 <a class="share" id="shr2" href="#" target="_blank" rel="noopener">Un pharmacien parmi vos contacts ? Partagez-lui cette page</a>
 <div id="pfaq"><h2 class="sh">Questions de pharmaciens</h2>
@@ -954,5 +957,24 @@ function envoyerInscription(e) {
   
   // Message de confirmation
   alert("Votre application e-mail va s'ouvrir. Veuillez envoyer le message pour finaliser votre inscription.");
-}/body>
+<script>
+function envoyerPreuvePaiement(moyen) {
+  const nomPharma = prompt("Veuillez entrer le nom de votre pharmacie (pour vérifier le paiement) :");
+  
+  if (nomPharma && nomPharma.trim() !== "") {
+    const sujet = encodeURIComponent("Preuve de paiement " + moyen + " - " + nomPharma);
+    const saut = "%0D%0A"; // Saut de ligne pour le mail
+    
+    const corps = 
+      encodeURIComponent("Bonjour PharmaDispo,") + saut + saut +
+      encodeURIComponent("Je viens d'effectuer le paiement via " + moyen + " pour l'inscription de ma pharmacie.") + saut + saut +
+      encodeURIComponent("Nom de la pharmacie : " + nomPharma) + saut +
+      encodeURIComponent("Moyen de paiement : " + moyen) + saut + saut +
+      encodeURIComponent("Merci de me confirmer la bonne réception.") + saut + saut +
+      encodeURIComponent("(N'oubliez pas de joindre la capture d'écran de la transaction dans ce mail avant d'envoyer)");
+      
+    window.location.href = "mailto:issiakadjeme5@gmail.com?subject=" + sujet + "&body=" + corps;
+  }
+}
+</script>}/body>
 </html>
