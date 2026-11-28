@@ -935,17 +935,18 @@ function envoyerInscription(e) {
   const email = document.getElementById('insEmail').value;
   const offre = document.getElementById('insOffre').value;
   const ref = document.getElementById('insRef').value;
-
-  // Préparation du message
+  // Préparation du message (Version propre)
   const sujet = encodeURIComponent("Nouvelle inscription Pharmacie : " + nom);
-  const corps = encodeURIComponent(
-    "Nom de la pharmacie : " + nom + "%0D%0A" +
-    "Ville : " + ville + "%0D%0A" +
-    "Téléphone : " + tel + "%0D%0A" +
-    "E-mail : " + email + "%0D%0A" +
-    "Offre choisie : " + offre + "%0D%0A" +
-    "Référence de paiement : " + (ref || "Non fournie") + "%0D%0%0D%0A" +
-    "Premier mois offert."
+  const saut = "%0D%0A"; // Saut de ligne compatible téléphone
+  
+  const corps = 
+    encodeURIComponent("Nom de la pharmacie : " + nom) + saut +
+    encodeURIComponent("Ville : " + ville) + saut +
+    encodeURIComponent("Téléphone : " + tel) + saut +
+    encodeURIComponent("E-mail : " + email) + saut +
+    encodeURIComponent("Offre choisie : " + offre) + saut +
+    encodeURIComponent("Référence de paiement : " + (ref || "Non fournie")) + saut + saut +
+    encodeURIComponent("Premier mois offert.");
   );
 
   // Envoi par e-mail (mailto)
